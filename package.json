@@ -9,6 +9,7 @@
   "author": "Nguyen Duy Tiep",
   "license": "ISC",
   "devDependencies": {
+    "skyweb": "0.0.2",
     "slack-node": "^0.1.3"
   }
 }
