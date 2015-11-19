@@ -28,7 +28,7 @@ skyweb.login(username, password).then(function (skypeAccount) {
     //  console.log('Hello World > helloworld.txt');
     //});
     for (var i = 1; i < 11; i++) {
-        skyweb.sendMessage("19:eb5c3d26ecce4d2d8dcec9e17c7e66eb@thread.skype", "We will never be slave " + i);
+        skyweb.sendMessage("19:eb5c3d26ecce4d2d8dcec9e17c7e66eb@thread.skype", "(monkey)");
     }
     //skyweb.messagesCallback = function (messages) {
     //messages.forEach(function (message) {
