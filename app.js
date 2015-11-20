@@ -19,8 +19,8 @@ var bot = new slackAPI({
 });
 
 var skyweb = new Skyweb();
-var username = "greencool5";
-var password = "0nlyleaf";
+var username = "skype.bot423";
+var password = "skyp3bot";
 
 bot.on('message', function (data) {
     //console.log("=========================");
@@ -55,8 +55,8 @@ skyweb.messagesCallback = function (messages) {
         var conversationId = conversationLink.substring(conversationLink.lastIndexOf('/') + 1);
         //console.log(conversationId);
         if (skypeRoomId == conversationId) {
-            //console.log((message));
-            if (message.resource.imdisplayname != "duytiep@live.com") {
+            //console.log((message.resource.imdisplayname));
+            if (message.resource.imdisplayname != "skype.bot423") {
                 slack.webhook({
                     channel: "#chim-sieu-cuong",
                     username: message.resource.imdisplayname,
