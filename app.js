@@ -26,13 +26,15 @@ bot.on('message', function (data) {
     //console.log("=========================");
     //console.log(data);
     //console.log("=========================");
-    if (data.user != "duytiep@live.com") {
+    //if (data.user != "duytiep@live.com") {
         var user = bot.getUser(data.user);
         if (user != null) {
             var username = "[" + user.name + "] : ";
             skyweb.sendMessage(skypeRoomId, username + data.text);
+        } else {
+            console.log("not a user");
         }
-    }
+    //}
 });
 
 
@@ -56,7 +58,7 @@ skyweb.messagesCallback = function (messages) {
             //console.log((message));
             if (message.resource.imdisplayname != "duytiep@live.com") {
                 slack.webhook({
-                    channel: "#chim-khong-lo",
+                    channel: "#chim-sieu-cuong",
                     username: message.resource.imdisplayname,
                     text: message.resource.content,
                 }, function(err, response) {
