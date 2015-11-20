@@ -18,6 +18,10 @@ var bot = new slackAPI({
     'autoReconnect': true
 });
 
+var skyweb = new Skyweb();
+var username = "greencool5";
+var password = "0nlyleaf";
+
 bot.on('message', function (data) {
     //console.log("=========================");
     //console.log(data);
@@ -32,9 +36,7 @@ bot.on('message', function (data) {
 });
 
 
-var skyweb = new Skyweb();
-var username = "greencool5";
-var password = "0nlyleaf";
+
 
 skyweb.login(username, password).then(function (skypeAccount) {
     console.log("Skyweb is initialized");
@@ -50,7 +52,7 @@ skyweb.messagesCallback = function (messages) {
         var conversationLink = message.resource.conversationLink;
         var conversationId = conversationLink.substring(conversationLink.lastIndexOf('/') + 1);
         //console.log(conversationId);
-        if ("19:eb5c3d26ecce4d2d8dcec9e17c7e66eb@thread.skype" == conversationId) {
+        if (skypeRoomId == conversationId) {
             //console.log((message));
             if (message.resource.imdisplayname != "duytiep@live.com") {
                 slack.webhook({
