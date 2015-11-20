@@ -2,41 +2,67 @@ var Slack = require('slack-node');
 var Skyweb = require('skyweb');
 var fs = require('fs');
 
-webhookUri = "https://hooks.slack.com/services/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";
+var webhookUri = "https://hooks.slack.com/services/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";
+var token = "xoxb-14980904678-O1AOxpq5lApx9qiZGv9FEYeK";
+var skypeRoomId = "19:eb5c3d26ecce4d2d8dcec9e17c7e66eb@thread.skype";
 
 slack = new Slack();
 slack.setWebhook(webhookUri);
 
-//for (var i = 1; i < 11; i++) {
-//    slack.webhook({
-//        channel: "#chim-khong-lo",
-//        username: "God",
-//        text: "fuck all " + i
-//    }, function(err, response) {
-//        console.log(response);
-//    });
-//}
+var slackAPI = require('slackbotapi');
+
+// Starting
+var bot = new slackAPI({
+    'token': token,
+    'logging': true,
+    'autoReconnect': true
+});
+
+bot.on('message', function (data) {
+    //console.log("=========================");
+    //console.log(data);
+    //console.log("=========================");
+    if (data.user != "duytiep@live.com") {
+        var user = bot.getUser(data.user);
+        if (user != null) {
+            var username = "[" + user.name + "] : ";
+            skyweb.sendMessage(skypeRoomId, username + data.text);
+        }
+    }
+});
+
 
 var skyweb = new Skyweb();
 var username = "greencool5";
 var password = "0nlyleaf";
-skyweb.login(username, password).then(function (skypeAccount) {
-    //console.log('Your contacts : ' + JSON.stringify(skyweb.group, null, 2));
 
-    //fs.writeFile('helloworld.txt', JSON.stringify(skyweb, null, 2), 'utf-8', function (err) {
-    //  if (err) return console.log(err);
-    //  console.log('Hello World > helloworld.txt');
-    //});
-    for (var i = 1; i < 11; i++) {
-        skyweb.sendMessage("19:eb5c3d26ecce4d2d8dcec9e17c7e66eb@thread.skype", "(monkey)");
-    }
-    //skyweb.messagesCallback = function (messages) {
-    //messages.forEach(function (message) {
-    //        if (message.resource.from.indexOf(username) === -1 && message.resource.messagetype !== 'Control/Typing' && message.resource.messagetype !== 'Control/ClearTyping') {
-    //            var conversationLink = message.resource.conversationLink;
-    //            var conversationId = conversationLink.substring(conversationLink.lastIndexOf('/') + 1);
-    //            skyweb.sendMessage(conversationId, message.resource.content + '. I will rule the World');
-    //        }
-    //    });
-    //};
+skyweb.login(username, password).then(function (skypeAccount) {
+    console.log("Skyweb is initialized");
 });
+
+skyweb.messagesCallback = function (messages) {
+    messages.forEach(function (message) {
+        //if (message.resource.from.indexOf(username) === -1 && message.resource.messagetype !== 'Control/Typing' && message.resource.messagetype !== 'Control/ClearTyping') {
+        //    var conversationLink = message.resource.conversationLink;
+        //    var conversationId = conversationLink.substring(conversationLink.lastIndexOf('/') + 1);
+        //    skyweb.sendMessage(conversationId, message.resource.content + '. Cats will rule the World');
+        //}
+        var conversationLink = message.resource.conversationLink;
+        var conversationId = conversationLink.substring(conversationLink.lastIndexOf('/') + 1);
+        //console.log(conversationId);
+        if ("19:eb5c3d26ecce4d2d8dcec9e17c7e66eb@thread.skype" == conversationId) {
+            //console.log((message));
+            if (message.resource.imdisplayname != "duytiep@live.com") {
+                slack.webhook({
+                    channel: "#chim-khong-lo",
+                    username: message.resource.imdisplayname,
+                    text: message.resource.content,
+                }, function(err, response) {
+                    console.log(response);
+                });
+            }
+
+        }
+    });
+};
+
