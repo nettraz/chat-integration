@@ -1,6 +1,7 @@
 var Slack = require('slack-node');
 var Skyweb = require('skyweb');
 var fs = require('fs');
+var striptags = require('striptags');
 
 var webhookUri = "https://hooks.slack.com/services/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";
 var token = "xoxb-14980904678-O1AOxpq5lApx9qiZGv9FEYeK";
@@ -60,7 +61,7 @@ skyweb.messagesCallback = function (messages) {
                 slack.webhook({
                     channel: "#chim-sieu-cuong",
                     username: message.resource.imdisplayname,
-                    text: message.resource.content,
+                    text: striptags(message.resource.content),
                 }, function(err, response) {
                     console.log(response);
                 });
