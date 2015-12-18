@@ -3,9 +3,9 @@ var Skyweb = require('skyweb');
 var fs = require('fs');
 var striptags = require('striptags');
 
-var webhookUri = "https://hooks.slack.com/services/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";
-var token = "xoxb-14980904678-O1AOxpq5lApx9qiZGv9FEYeK";
-var skypeRoomId = "19:eb5c3d26ecce4d2d8dcec9e17c7e66eb@thread.skype";
+var webhookUri = "";
+var token = "";
+var skypeRoomId = "";
 
 slack = new Slack();
 slack.setWebhook(webhookUri);
