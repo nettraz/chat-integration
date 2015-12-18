@@ -20,8 +20,8 @@ var bot = new slackAPI({
 });
 
 var skyweb = new Skyweb();
-var username = "skype.bot423";
-var password = "skyp3bot";
+var username = "";
+var password = "";
 
 bot.on('message', function (data) {
     //console.log("=========================");
